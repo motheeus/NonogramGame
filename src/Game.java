@@ -4,34 +4,42 @@ import java.lang.StringBuilder;
 
 public class Game {
 
+    // Criacao do tabuleiro e definicao de valores padroes de tamanho
     private int[][] board;
     private int rows = 5;
     private int columns = 5;
 
+    // Construtor vazio, atributos sao definidos por metodos publicos
     public Game() {
 
     }
 
+    // Responsavel por criar e randomizar o tabuleiro. 
     public void generateBoard(int tamanho){
         this.rows = tamanho;
         this.columns = tamanho;
 
+        // Tamanho do tabuleiro precisa ser divisivel por 5 
         if ((tamanho % 5) != 0 ){
             System.out.println("Tamanho de tabela invalida");
         }
 
+        // Matriz de criacao do tabuleiro
         board = new int[rows][columns];
 
         Random rand = new Random();
 
+        //Criacao dos blocos do tabuleiro
         for (int y = 0; y < rows; y++) {
             int somaLinha = 0;
 
+            // Metodo nextInt do rand é resposável por gerar os blocos, de forma aleatória. 
             for (int x = 0; x < columns; x++){
                 board[y][x] = rand.nextInt(2);
                 somaLinha += board[y][x];
             }
 
+            // Se uma linha for vazia, ele gera o tabuleiro novamente. (Falta implementar a mesma condicao para comportamento nas colunas.)
             if (somaLinha == 0) {
                 y = y - 1;
                 System.out.println("[DEV] Houve a geracao de uma nova linha.");
@@ -103,7 +111,6 @@ public class Game {
 
     public void printColumnTips(String[] tipsArray){
         int maxRows = Arrays.stream(tipsArray).mapToInt(String::length).max().orElse(0);
-
 
         for (int i = 0; i < maxRows; i++){
             
