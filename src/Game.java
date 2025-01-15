@@ -1,5 +1,7 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.lang.StringBuilder;
+
 public class Game {
 
     private int[][] board;
@@ -64,6 +66,65 @@ public class Game {
         return tip;
     }
 
+    public void generateColumnTips(){
+        int count;
+        int maxRows;
+        StringBuilder sb = new StringBuilder();
+
+        String[] results = new String[columns];
+
+        for (int x = 0; x < columns; x++){
+            count = 0;
+
+            for (int y = 0; y < rows; y++){
+
+                int boardValue = board[y][x];
+
+                if (boardValue == 1){
+                    count += 1;
+
+                    if (y == rows - 1) sb.append(count);
+
+                } else {
+
+                    if (count != 0) sb.append(count);
+                    count = 0;
+
+                }
+            }
+
+            results[x] = sb.toString();
+            sb.setLength(0);
+
+        }
+
+        printColumnTips(results);
+    }
+
+    public void printColumnTips(String[] tipsArray){
+        int maxRows = Arrays.stream(tipsArray).mapToInt(String::length).max().orElse(0);
+
+
+        for (int i = 0; i < maxRows; i++){
+            
+            System.out.print(" ");
+
+            for (int x = 0; x < columns; x++){
+                if (tipsArray[x].length() <= maxRows){
+                    try{
+                        System.out.print(""+tipsArray[x].charAt(i) + " ");
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.print("  ");
+                    }
+                }
+            }
+
+            System.out.println();
+        }
+
+    }
+
+
     public void printBoard(){
 
         for (int i = 0; i < columns * 3; i++) {
@@ -85,6 +146,7 @@ public class Game {
             System.out.println(" ");
 
         }
+        generateColumnTips();
 
     }
 

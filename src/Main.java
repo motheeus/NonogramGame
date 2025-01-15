@@ -3,7 +3,7 @@ public class Main {
 
         Game game = new Game();
 
-        game.generateBoard(5);
+        game.generateBoard(10);
 
         game.printBoard();
 
